@@ -123,6 +123,55 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <div className='form-div'>
+        <form className='form'>
+          <div className='input-div' id='first-input'>
+            <TextField 
+              className='input'
+              autoComplete='off'
+              value={this.state.input}
+              onChange={this.handleChange.bind(this)}
+              type="text" 
+              name="name" 
+              id="outlined-basic" 
+              label={this.state.isDone ? 'Type in number of Teams' : 'Type in a new Name:'}
+              variant="outlined" 
+              size='large'
+              color='secondary'
+            />
+          </div>
+          <div className='input-div'>
+            <Button
+              className='input'
+              onClick={!this.state.isDone ? this.submitName : this.divideIntoTeams}
+              disabled={!this.state.input}
+              id='submit' 
+              type="submit" 
+              value="Submit"  
+              variant="contained" 
+              size='large'
+              color='primary'>
+              {!this.state.isDone ? 'Submit Player' : 'Submit Teams Number and Divide into Teams'}
+            </Button>
+          </div>
+          
+          {this.state.names.length>0 ? 
+          <div className='input-div'>
+            <Button
+              className='input'
+              variant="contained" 
+              color="primary"
+              onClick={!this.state.isDivided ? this.handleDone : this.startOver}
+              id='done' 
+              type="submit" 
+              value="Done"
+              size='large'>  
+              {!this.state.isDone ? 'Submit Players List' : 'Start over'}
+            </Button>
+          </div> : <p></p>}
+        </form>
+
+        </div>
         <Typography className='text' style={{color:'white'}}variant='h3'>Players List:</Typography>
         {!this.state.isDone ? 
         <div className='list-div'>
@@ -163,55 +212,6 @@ class App extends React.Component {
                 </List>}
             </div>
         }
-        <div className='form-div'>
-        <form className='form'>
-          <div className='input-div' id='first-input'>
-            <TextField 
-              className='input'
-              autoComplete='off'
-              value={this.state.input}
-              onChange={this.handleChange.bind(this)}
-              type="text" 
-              name="name" 
-              id="outlined-basic" 
-              label={this.state.isDone ? 'Type in number of Teams' : 'Type in a new Name:'}
-              variant="outlined" 
-              size='large'
-              color='primary'
-            />
-          </div>
-          <div className='input-div'>
-            <Button
-              className='input'
-              onClick={!this.state.isDone ? this.submitName : this.divideIntoTeams}
-              disabled={!this.state.input}
-              id='submit' 
-              type="submit" 
-              value="Submit"  
-              variant="contained" 
-              size='large'
-              color='primary'>
-              {!this.state.isDone ? 'Submit Player' : 'Submit Teams Number and Divide into Teams'}
-            </Button>
-          </div>
-          
-          {this.state.names.length>0 ? 
-          <div className='input-div'>
-            <Button
-              className='input'
-              variant="contained" 
-              color="primary"
-              onClick={!this.state.isDivided ? this.handleDone : this.startOver}
-              id='done' 
-              type="submit" 
-              value="Done"
-              size='large'>  
-              {!this.state.isDone ? 'Submit Players List' : 'Start over'}
-            </Button>
-          </div> : <p></p>}
-        </form>
-
-        </div>
       </div>
     );
   }

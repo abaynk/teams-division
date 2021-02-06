@@ -4,7 +4,7 @@
   position: relative;
   text-align: center;
   width: 90%;
-  height: 70vh;
+  height: 80vh;
   margin: 0 auto;
   background: rgba( 53, 98, 166, 0.95 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -35,8 +35,6 @@
   margin: 10px auto;
 }
 .form-div {
-  position:absolute;
-  bottom: 10px;
   width: 100%;
   margin: auto;
 }
@@ -49,7 +47,9 @@
 }
 .list-item {
   color: white;
-  width: max-content;
+  width: 90%;
+  overflow: scroll;
+  scrollbar-width: none;
   margin: 5px auto;
   background: rgba( 63, 81, 181, 0.90 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -58,6 +58,8 @@
   border-radius: 10px;
 }
 .list-div {
+  width: 100%;
+  margin-top:20px;
   height: 39vh;
   overflow:scroll;
 }
