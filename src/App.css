@@ -1,42 +1,67 @@
-.App {
-  margin:auto;
-  text-align: center;
-  height: 100vh;
-  overflow:auto;
-}
-input,button {
-  display:block;
-  margin: 10px auto 10px auto;
-  width: 360px;
-  font-size: 20px;
-  border-radius: 5px;
-  color: #212529;
-}
-li{
-  padding: 5px 10px;
-  margin: auto;
-  margin-left: -25px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: #ced4da;
-  font-size: 20px;
-  color: #212529;
-  border: 1px solid #212529;
-}
-.display {
-  text-align: center;
-  overflow: scroll;
-  scrollbar-width: none;
-  /* background-color: #e9ecef; */
-  margin: auto;
-  width: 360px;
-  height: 25%;
-  padding: 10px;
-  border-radius: 20px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@700&display=swap');
 
-@media only screen and (max-width:480px){
-  .display, input, button {
-    width: 90%;
+.App {
+  position: relative;
+  text-align: center;
+  width: 90%;
+  height: 70vh;
+  margin: 0 auto;
+  background: rgba( 53, 98, 166, 0.95 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 20.0px );
+  -webkit-backdrop-filter: blur( 20.0px );
+  border-radius: 10px;
+}
+@media (min-width:48rem) {
+  .App {
+    width: 80%;
   }
+  .list-div {
+    scrollbar-width: none;
+  }
+}
+@media (min-width: 67.5rem) {
+  .App {
+    width: 56rem;
+  }
+  .list-div {
+    scrollbar-width: none;
+  }
+}
+.form {
+  display: grid;
+  justify-content: center;
+  width: 90%;
+  margin: 10px auto;
+}
+.form-div {
+  position:absolute;
+  bottom: 10px;
+  width: 100%;
+  margin: auto;
+}
+.input-div {
+  width: 100%;
+  margin-top: 10px;
+}
+.input {
+  width: 100%;
+}
+.list-item {
+  color: white;
+  width: max-content;
+  margin: 5px auto;
+  background: rgba( 63, 81, 181, 0.90 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 20.0px );
+  -webkit-backdrop-filter: blur( 20.0px );
+  border-radius: 10px;
+}
+.list-div {
+  height: 39vh;
+  overflow:scroll;
+}
+.text {
+  font-family: 'Cormorant', serif;
+  text-shadow: 0 8px 12px black;
 }

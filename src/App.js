@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { Button, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography,  } from '@material-ui/core';
 
 const shuffle = (array) => {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -87,17 +88,16 @@ class App extends React.Component {
   submitName(e) {
     e.preventDefault();
     const currentName = this.state.input;
-    if (currentName !== '') {
-      this.setState({
-        input: '',
-        names: this.state.names.concat(`${currentName} `)
-      });
-    }
+    this.setState({
+      input: '',
+      names: this.state.names.concat(`${currentName} `)
+    });
   }
 
   handleDone(e) {
     e.preventDefault();
     this.setState({
+      input: '',
       isDone: true
     })
   }
@@ -105,72 +105,113 @@ class App extends React.Component {
   divideIntoTeams (e) {
     e.preventDefault();
     const teams = this.state.input;
-    this.setState({
-      input: '',
-      teamsNumber: parseInt(teams),
-      dividedTeams: chunkify(shuffle(this.state.names),teams,true),
-      isDivided: true,
-    })
+      if (!isNaN(teams)){
+      this.setState({
+        input: '',
+        teamsNumber: parseInt(teams),
+        dividedTeams: chunkify(shuffle(this.state.names),teams,true),
+        isDivided: true,
+      })
+    }
   }
 
   startOver(e) {
     e.preventDefault();
     window.location.reload();
   }
-
+  
   render() {
-    document.body.style.backgroundColor = '#6c757d';
     return (
       <div className="App">
-        <h1 style={{color:'#dee2e6'}}>Player's List:</h1>
-        <div className='display'>
-        {!this.state.isDone ? <ol style={{color:'#212529'}}>
-                                {this.state.names.map( (name, index) => {
-                                  return(
-                                    <li key={index}>{name}</li>
-                                  )
-                                })}
-                              </ol> : 
-                            <div style={{color:'#dee2e6'}}>
-                              <h2>Teams Number: {this.state.teamsNumber}</h2>
-                              {!this.state.isDivided ? <p></p> :
-                              <ol>
-                                {this.state.dividedTeams.map((team, index)=>{
-                                  return(
-                                    <li className='li' key={index}>{team}</li>
-                                  )
-                                })}
-                              </ol>}
-                            </div>
-        }
+        <Typography className='text' style={{color:'white'}}variant='h3'>Players List:</Typography>
+        {!this.state.isDone ? 
+        <div className='list-div'>
+          <List className='list'>
+            {this.state.names.map((name, index)=>{
+              return(
+                <div  className='list-item'>
+                  <ListItem>
+                    <ListItemAvatar>
+                      {index+1}.
+                    </ListItemAvatar>
+                    <ListItemText >{name}</ListItemText>
+                  </ListItem>
+                </div>
+              )
+            })}
+          </List>
         </div>
-        <form>
-          <label style={{color:'#dee2e6'}}>
-            {this.state.isDone ? 'Type in number of Teams' : 'Type in a new Name:'}<br></br>
-          </label>
-          <input 
-            value={this.state.input}
-            onChange={this.handleChange.bind(this)}
-            id='input'
-            type="text" 
-            name="name" 
-            style={{backgroundColor:'#e9ecef', border:'1px solid #212529'}} 
-          />
-          <button 
-            onClick={!this.state.isDone ? this.submitName : this.divideIntoTeams}
-            id='submit' 
-            type="submit" 
-            value="Submit" 
-            style={{backgroundColor:'#e9ecef', border:'none'}} 
-          > {!this.state.isDone ? 'Submit Player' : !this.state.isDivided ? 'Submit Teams Number and Divide into Teams' : ''} </button>
-          <button 
-            onClick={!this.state.isDivided ? this.handleDone : this.startOver}
-            id='done' 
-            type="submit" 
-            value="Done" 
-            style={{backgroundColor:'#e9ecef', border:'none'}} 
-          > {!this.state.isDone ? 'Submit Players List' : this.state.isDivided ? 'Start over' : ''} </button>
+          : <div className='list-div'>
+              <Typography variant="h6" className='text' style={{color:'white'}}>
+                Teams Number: {this.state.teamsNumber}
+              </Typography>
+              {!this.state.isDivided ?
+                <p></p> :
+                <List className='list'>
+                  {this.state.dividedTeams.map((team, index)=>{
+                    return(
+                      <div className='list-item'>
+                        <ListItem className='list-item'>
+                          <ListItemAvatar>
+                            {index+1}.
+                          </ListItemAvatar>
+                          <ListItemText >{team}</ListItemText>
+                        </ListItem>
+                      </div>
+                    )
+                  })}
+                </List>}
+            </div>
+        }
+        <div className='form-div'>
+        <form className='form'>
+          <div className='input-div' id='first-input'>
+            <TextField 
+              className='input'
+              autoComplete='off'
+              value={this.state.input}
+              onChange={this.handleChange.bind(this)}
+              type="text" 
+              name="name" 
+              id="outlined-basic" 
+              label={this.state.isDone ? 'Type in number of Teams' : 'Type in a new Name:'}
+              variant="outlined" 
+              size='large'
+              color='primary'
+            />
+          </div>
+          <div className='input-div'>
+            <Button
+              className='input'
+              onClick={!this.state.isDone ? this.submitName : this.divideIntoTeams}
+              disabled={!this.state.input}
+              id='submit' 
+              type="submit" 
+              value="Submit"  
+              variant="contained" 
+              size='large'
+              color='primary'>
+              {!this.state.isDone ? 'Submit Player' : 'Submit Teams Number and Divide into Teams'}
+            </Button>
+          </div>
+          
+          {this.state.names.length>0 ? 
+          <div className='input-div'>
+            <Button
+              className='input'
+              variant="contained" 
+              color="primary"
+              onClick={!this.state.isDivided ? this.handleDone : this.startOver}
+              id='done' 
+              type="submit" 
+              value="Done"
+              size='large'>  
+              {!this.state.isDone ? 'Submit Players List' : 'Start over'}
+            </Button>
+          </div> : <p></p>}
         </form>
+
+        </div>
       </div>
     );
   }
